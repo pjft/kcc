@@ -1120,7 +1120,7 @@ def checkTools(source):
             sys.exit(1)
     if options.format == 'MOBI':
         try:
-            subprocess_run(['kindlegen', '-locale', 'en'], stdout=PIPE, stderr=STDOUT)
+            subprocess_run(['qemu-i386-static', '/srv/dev-disk-by-label-HDD/kcc/kindlegen', '-locale', 'en'], stdout=PIPE, stderr=STDOUT)
         except FileNotFoundError:
             print('ERROR: KindleGen is missing!')
             sys.exit(1)
@@ -1277,7 +1277,7 @@ def makeMOBIWorker(item):
     kindlegenError = ''
     try:
         if os.path.getsize(item) < 629145600:
-            output = subprocess_run(['kindlegen', '-dont_append_source', '-locale', 'en', item],
+            output = subprocess_run(['qemu-i386-static', '/srv/dev-disk-by-label-HDD/kcc/kindlegen', '-dont_append_source', '-locale', 'en', item],
                            stdout=PIPE, stderr=STDOUT, encoding='UTF-8')
             for line in output.stdout.splitlines():
                 # ERROR: Generic error
